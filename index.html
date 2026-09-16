@@ -99,9 +99,73 @@
   .headline span {
     display: inline-block;
   }
+
+  .pillars {
+    background-color: oklch(97% 0.01 60);
+    padding: 140px 48px;
+  }
+
+  .pillars-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 64px;
+  }
+
+  .pillar h2 {
+    margin: 0 0 16px 0;
+    font-family: 'Italiana', serif;
+    font-weight: 400;
+    font-size: clamp(28px, 3.2vw, 42px);
+    color: oklch(30% 0.16 24);
+  }
+
+  .pillar p {
+    margin: 0;
+    font-family: 'Manrope', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: oklch(45% 0.02 45);
+  }
 </style>
 </head>
 <body>
+
+<svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="dissolve-0" x="-100%" y="-100%" width="300%" height="300%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="2" result="noise"/>
+      <feDisplacementMap id="disp-0" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="warped"/>
+      <feGaussianBlur id="blur-0" in="warped" stdDeviation="0"/>
+    </filter>
+    <filter id="dissolve-1" x="-100%" y="-100%" width="300%" height="300%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="9" result="noise"/>
+      <feDisplacementMap id="disp-1" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="warped"/>
+      <feGaussianBlur id="blur-1" in="warped" stdDeviation="0"/>
+    </filter>
+    <filter id="dissolve-2" x="-100%" y="-100%" width="300%" height="300%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="17" result="noise"/>
+      <feDisplacementMap id="disp-2" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="warped"/>
+      <feGaussianBlur id="blur-2" in="warped" stdDeviation="0"/>
+    </filter>
+    <filter id="dissolve-3" x="-100%" y="-100%" width="300%" height="300%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="23" result="noise"/>
+      <feDisplacementMap id="disp-3" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="warped"/>
+      <feGaussianBlur id="blur-3" in="warped" stdDeviation="0"/>
+    </filter>
+    <filter id="dissolve-4" x="-100%" y="-100%" width="300%" height="300%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="31" result="noise"/>
+      <feDisplacementMap id="disp-4" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="warped"/>
+      <feGaussianBlur id="blur-4" in="warped" stdDeviation="0"/>
+    </filter>
+    <filter id="dissolve-5" x="-100%" y="-100%" width="300%" height="300%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="41" result="noise"/>
+      <feDisplacementMap id="disp-5" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="warped"/>
+      <feGaussianBlur id="blur-5" in="warped" stdDeviation="0"/>
+    </filter>
+  </defs>
+</svg>
 
 <div class="scroll-stage">
   <div class="hero">
@@ -121,40 +185,80 @@
     </nav>
 
     <h1 class="headline" aria-label="Herbal">
-      <span>H</span><span>e</span><span>r</span><span>b</span><span>a</span><span>l</span>
+      <span style="filter: url(#dissolve-0)">H</span><span style="filter: url(#dissolve-1)">e</span><span style="filter: url(#dissolve-2)">r</span><span style="filter: url(#dissolve-3)">b</span><span style="filter: url(#dissolve-4)">a</span><span style="filter: url(#dissolve-5)">l</span>
     </h1>
   </div>
 </div>
 
+<section class="pillars">
+  <div class="pillars-grid">
+    <div class="pillar">
+      <h2>Longevity</h2>
+      <p>Time-honored formulas that support the body's natural rhythm, season after season.</p>
+    </div>
+    <div class="pillar">
+      <h2>Nourish</h2>
+      <p>Whole-root botanicals selected to restore balance from the inside out.</p>
+    </div>
+    <div class="pillar">
+      <h2>Replenish</h2>
+      <p>Daily rituals that rebuild what modern life quietly depletes.</p>
+    </div>
+  </div>
+</section>
+
 <script>
 (function () {
-  var letters = Array.prototype.slice.call(document.querySelectorAll('.headline span'));
-  var video = document.querySelector('.hero video');
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var video = document.querySelector('.hero video');
 
   if (reduceMotion && video) {
     video.removeAttribute('autoplay');
     video.pause();
   }
 
-  if (!letters.length || reduceMotion) return;
+  if (reduceMotion) return;
 
+  var letters = Array.prototype.slice.call(document.querySelectorAll('.headline span'));
+  var dispEls = letters.map(function (_, i) { return document.getElementById('disp-' + i); });
+  var blurEls = letters.map(function (_, i) { return document.getElementById('blur-' + i); });
   var duration = 0.4;
   var n = letters.length;
   var stagger = n > 1 ? (1 - duration) / (n - 1) : 0;
+
+  var pillarsSection = document.querySelector('.pillars');
+  var pillars = Array.prototype.slice.call(document.querySelectorAll('.pillar'));
+  var pDuration = 0.6;
+  var pStagger = pillars.length > 1 ? (1 - pDuration) / (pillars.length - 1) : 0;
+
   var ticking = false;
 
   function update() {
     var vh = window.innerHeight || 1;
-    var p = Math.min(1, Math.max(0, window.scrollY / vh));
-    letters.forEach(function (el, i) {
-      var li = Math.min(1, Math.max(0, (p - i * stagger) / duration));
-      var fall = li * li * 140;
-      var scaleX = 1 + li * 0.08;
-      var scaleY = 1 - li * 0.12;
-      el.style.transform = 'translateY(' + fall + 'px) scale(' + scaleX + ', ' + scaleY + ')';
-      el.style.opacity = String(1 - li);
-    });
+
+    if (letters.length) {
+      var p = Math.min(1, Math.max(0, window.scrollY / vh));
+      letters.forEach(function (el, i) {
+        var li = Math.min(1, Math.max(0, (p - i * stagger) / duration));
+        if (dispEls[i]) dispEls[i].setAttribute('scale', String(li * 70));
+        if (blurEls[i]) blurEls[i].setAttribute('stdDeviation', String((li * 3).toFixed(2)));
+        el.style.opacity = String(1 - li);
+      });
+    }
+
+    if (pillarsSection && pillars.length) {
+      var rect = pillarsSection.getBoundingClientRect();
+      var start = vh;
+      var end = vh - rect.height;
+      var raw = (start - rect.top) / (start - end);
+      var pp = Math.min(1, Math.max(0, raw));
+      pillars.forEach(function (el, i) {
+        var li = Math.min(1, Math.max(0, (pp - i * pStagger) / pDuration));
+        el.style.opacity = String(li);
+        el.style.transform = 'translateX(' + ((1 - li) * -24).toFixed(1) + 'px)';
+      });
+    }
+
     ticking = false;
   }
 
@@ -165,6 +269,7 @@
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
   update();
 })();
 </script>
