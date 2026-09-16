@@ -26,7 +26,11 @@
       top: 0;
       width: 100vw;
       height: 100vh;
-      background: oklch(84% 0.045 55);
+      background-color: oklch(84% 0.045 55);
+      background-image: url(./f_01.jpg);
+      background-size: cover;
+      background-position: center;
+      animation: bloom-flip 16s linear infinite;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -34,11 +38,65 @@
       color: oklch(23% 0.03 40);
     }
 
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: oklch(84% 0.045 55 / 0.22);
+      pointer-events: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero {
+        animation: none;
+        background-image: url(./f_18.jpg);
+      }
+    }
+
+    @keyframes bloom-flip {
+      0.000% { background-image: url(./f_01.jpg); }
+      2.941% { background-image: url(./f_02.jpg); }
+      5.882% { background-image: url(./f_03.jpg); }
+      8.824% { background-image: url(./f_04.jpg); }
+      11.765% { background-image: url(./f_05.jpg); }
+      14.706% { background-image: url(./f_06.jpg); }
+      17.647% { background-image: url(./f_07.jpg); }
+      20.588% { background-image: url(./f_08.jpg); }
+      23.529% { background-image: url(./f_09.jpg); }
+      26.471% { background-image: url(./f_10.jpg); }
+      29.412% { background-image: url(./f_11.jpg); }
+      32.353% { background-image: url(./f_12.jpg); }
+      35.294% { background-image: url(./f_13.jpg); }
+      38.235% { background-image: url(./f_14.jpg); }
+      41.176% { background-image: url(./f_15.jpg); }
+      44.118% { background-image: url(./f_16.jpg); }
+      47.059% { background-image: url(./f_17.jpg); }
+      50.000% { background-image: url(./f_18.jpg); }
+      52.941% { background-image: url(./f_17.jpg); }
+      55.882% { background-image: url(./f_16.jpg); }
+      58.824% { background-image: url(./f_15.jpg); }
+      61.765% { background-image: url(./f_14.jpg); }
+      64.706% { background-image: url(./f_13.jpg); }
+      67.647% { background-image: url(./f_12.jpg); }
+      70.588% { background-image: url(./f_11.jpg); }
+      73.529% { background-image: url(./f_10.jpg); }
+      76.471% { background-image: url(./f_09.jpg); }
+      79.412% { background-image: url(./f_08.jpg); }
+      82.353% { background-image: url(./f_07.jpg); }
+      85.294% { background-image: url(./f_06.jpg); }
+      88.235% { background-image: url(./f_05.jpg); }
+      91.176% { background-image: url(./f_04.jpg); }
+      94.118% { background-image: url(./f_03.jpg); }
+      97.059% { background-image: url(./f_02.jpg); }
+      100% { background-image: url(./f_01.jpg); }
+    }
+
     .nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 40px 48px 0 48px;
+      z-index: 1;
     }
 
     .logo {
@@ -68,6 +126,7 @@
       width: 100%;
       margin: 0;
       padding: 0 0 40px 0;
+      z-index: 1;
       color: oklch(30% 0.16 24);
       font-family: 'Archivo Black', sans-serif;
       font-weight: 400;
