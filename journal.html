@@ -9,14 +9,14 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Italiana&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Noto+Serif+SC:wght@500;600&display=swap">
 <style>
   :root {
-    --nude: oklch(17% 0.03 300);
-    --ink: oklch(88% 0.04 300 / 0.72);
-    --ink-soft: oklch(85% 0.035 300 / 0.5);
-    --red: oklch(92% 0.06 300 / 0.85);
-    --glass: oklch(85% 0.04 300 / 0.06);
-    --glass-lit: oklch(88% 0.05 300 / 0.13);
-    --edge: oklch(88% 0.04 300 / 0.17);
-    --rule: oklch(88% 0.04 300 / 0.17);
+    --nude: oklch(84% 0.045 55);
+    --ink: oklch(23% 0.03 40);
+    --ink-soft: oklch(45% 0.02 45);
+    --red: oklch(30% 0.16 24);
+    --glass: oklch(98% 0.012 70 / 0.34);
+    --glass-lit: oklch(99% 0.012 70 / 0.52);
+    --edge: oklch(100% 0 0 / 0.45);
+    --rule: oklch(60% 0.02 50 / 0.35);
   }
 
   * { box-sizing: border-box; }
@@ -28,7 +28,7 @@
     color: var(--ink);
     font-family: 'Nunito Sans', sans-serif;
     font-size: 16px;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1.7;
     overflow-x: hidden;
   }
@@ -38,24 +38,6 @@
   :focus-visible {
     outline: 2px solid var(--red);
     outline-offset: 4px;
-  }
-
-  /* the light that follows the pointer — the only thing on the page that moves,
-     and only because the viewer moves it */
-  .glow {
-    position: fixed;
-    left: 50%;
-    top: 40%;
-    width: 760px;
-    height: 760px;
-    margin: -380px 0 0 -380px;
-    border-radius: 50%;
-    background: radial-gradient(circle closest-side,
-      oklch(90% 0.07 300 / 0.20) 0%,
-      oklch(85% 0.06 290 / 0.09) 42%,
-      transparent 72%);
-    pointer-events: none;
-    z-index: 0;
   }
 
   .page {
@@ -195,10 +177,6 @@
     scroll-margin-top: 32px;
   }
 
-  .entry:hover {
-    background: var(--glass-lit);
-  }
-
   .entry:target {
     border-color: var(--red);
     background: var(--glass-lit);
@@ -270,8 +248,6 @@
 </style>
 </head>
 <body>
-
-<div class="glow" aria-hidden="true"></div>
 
 <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
   <defs>
@@ -509,29 +485,6 @@
 </div>
 
 <script>
-(function () {
-  var glow = document.querySelector('.glow');
-  if (!glow) return;
-
-  var x = window.innerWidth / 2;
-  var y = window.innerHeight * 0.4;
-  var pending = false;
-
-  function place() {
-    glow.style.left = x + 'px';
-    glow.style.top = y + 'px';
-    pending = false;
-  }
-
-  window.addEventListener('pointermove', function (e) {
-    x = e.clientX;
-    y = e.clientY;
-    if (pending) return;
-    pending = true;
-    requestAnimationFrame(place);
-  }, { passive: true });
-})();
-
 (function () {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
