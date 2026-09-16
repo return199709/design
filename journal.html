@@ -6,17 +6,17 @@
 <title>Journal — Herbal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Italiana&family=Manrope:wght@400;500;600&family=Noto+Serif+SC:wght@500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Italiana&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Noto+Serif+SC:wght@500;600&display=swap">
 <style>
   :root {
-    --nude: oklch(84% 0.045 55);
-    --ink: oklch(23% 0.03 40);
-    --ink-soft: oklch(45% 0.02 45);
-    --red: oklch(30% 0.16 24);
-    --glass: oklch(98% 0.012 70 / 0.34);
-    --glass-lit: oklch(99% 0.012 70 / 0.52);
-    --edge: oklch(100% 0 0 / 0.45);
-    --rule: oklch(60% 0.02 50 / 0.35);
+    --nude: oklch(17% 0.03 300);
+    --ink: oklch(88% 0.04 300 / 0.72);
+    --ink-soft: oklch(85% 0.035 300 / 0.5);
+    --red: oklch(92% 0.06 300 / 0.85);
+    --glass: oklch(85% 0.04 300 / 0.06);
+    --glass-lit: oklch(88% 0.05 300 / 0.13);
+    --edge: oklch(88% 0.04 300 / 0.17);
+    --rule: oklch(88% 0.04 300 / 0.17);
   }
 
   * { box-sizing: border-box; }
@@ -26,8 +26,9 @@
   body {
     background-color: var(--nude);
     color: var(--ink);
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
     font-size: 16px;
+    font-weight: 300;
     line-height: 1.7;
     overflow-x: hidden;
   }
@@ -50,8 +51,8 @@
     margin: -380px 0 0 -380px;
     border-radius: 50%;
     background: radial-gradient(circle closest-side,
-      oklch(99% 0.04 85 / 0.62) 0%,
-      oklch(93% 0.06 45 / 0.28) 42%,
+      oklch(90% 0.07 300 / 0.20) 0%,
+      oklch(85% 0.06 290 / 0.09) 42%,
       transparent 72%);
     pointer-events: none;
     z-index: 0;
@@ -96,13 +97,28 @@
     padding-bottom: 2px;
   }
 
+  .scroll-stage {
+    position: relative;
+    height: 200vh;
+  }
+
+  .masthead-wrap {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+
   .masthead {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
     width: 100%;
-    margin: 56px 0 0 0;
-    padding: 0;
+    margin: 0;
+    padding: 0 0 40px 0;
     color: var(--red);
     font-family: 'Archivo Black', sans-serif;
     font-weight: 400;
@@ -117,7 +133,7 @@
   .wrap {
     max-width: 880px;
     margin: 0 auto;
-    padding: 0 48px 120px 48px;
+    padding: 0 48px 45vh 48px;
   }
 
   .lede {
@@ -126,8 +142,8 @@
 
   .lede h2 {
     margin: 0 0 20px 0;
-    font-family: 'Italiana', serif;
-    font-weight: 400;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 300;
     font-size: clamp(30px, 4vw, 46px);
     line-height: 1.15;
     color: var(--ink);
@@ -257,21 +273,67 @@
 
 <div class="glow" aria-hidden="true"></div>
 
+<svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="dissolve-0" x="-100%" y="-100%" width="300%" height="300%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="2" result="noise"/>
+      <feDisplacementMap id="disp-0" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="warped"/>
+      <feGaussianBlur id="blur-0" in="warped" stdDeviation="0"/>
+    </filter>
+    <filter id="dissolve-1" x="-100%" y="-100%" width="300%" height="300%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="9" result="noise"/>
+      <feDisplacementMap id="disp-1" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="warped"/>
+      <feGaussianBlur id="blur-1" in="warped" stdDeviation="0"/>
+    </filter>
+    <filter id="dissolve-2" x="-100%" y="-100%" width="300%" height="300%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="17" result="noise"/>
+      <feDisplacementMap id="disp-2" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="warped"/>
+      <feGaussianBlur id="blur-2" in="warped" stdDeviation="0"/>
+    </filter>
+    <filter id="dissolve-3" x="-100%" y="-100%" width="300%" height="300%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="23" result="noise"/>
+      <feDisplacementMap id="disp-3" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="warped"/>
+      <feGaussianBlur id="blur-3" in="warped" stdDeviation="0"/>
+    </filter>
+    <filter id="dissolve-4" x="-100%" y="-100%" width="300%" height="300%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="31" result="noise"/>
+      <feDisplacementMap id="disp-4" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="warped"/>
+      <feGaussianBlur id="blur-4" in="warped" stdDeviation="0"/>
+    </filter>
+    <filter id="dissolve-5" x="-100%" y="-100%" width="300%" height="300%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="41" result="noise"/>
+      <feDisplacementMap id="disp-5" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="warped"/>
+      <feGaussianBlur id="blur-5" in="warped" stdDeviation="0"/>
+    </filter>
+    <filter id="dissolve-6" x="-100%" y="-100%" width="300%" height="300%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="53" result="noise"/>
+      <feDisplacementMap id="disp-6" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="warped"/>
+      <feGaussianBlur id="blur-6" in="warped" stdDeviation="0"/>
+    </filter>
+  </defs>
+</svg>
+
 <div class="page">
 
-  <nav class="nav">
-    <a class="logo" href="index.html">Herbal</a>
-    <div class="links">
-      <a href="#">Shop</a>
-      <a href="#">Rituals</a>
-      <a href="#">About</a>
-      <a href="journal.html" aria-current="page">Journal</a>
-    </div>
-  </nav>
+  <div class="scroll-stage">
+    <div class="masthead-wrap">
 
-  <h1 class="masthead" aria-label="Journal">
-    <span>J</span><span>o</span><span>u</span><span>r</span><span>n</span><span>a</span><span>l</span>
-  </h1>
+      <nav class="nav">
+        <a class="logo" href="index.html">Herbal</a>
+        <div class="links">
+          <a href="#">Shop</a>
+          <a href="#">Rituals</a>
+          <a href="#">About</a>
+          <a href="journal.html" aria-current="page">Journal</a>
+        </div>
+      </nav>
+
+      <h1 class="masthead" aria-label="Journal">
+        <span style="filter: url(#dissolve-0)">J</span><span style="filter: url(#dissolve-1)">o</span><span style="filter: url(#dissolve-2)">u</span><span style="filter: url(#dissolve-3)">r</span><span style="filter: url(#dissolve-4)">n</span><span style="filter: url(#dissolve-5)">a</span><span style="filter: url(#dissolve-6)">l</span>
+      </h1>
+
+    </div>
+  </div>
 
   <div class="wrap">
 
@@ -468,6 +530,58 @@
     pending = true;
     requestAnimationFrame(place);
   }, { passive: true });
+})();
+
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var letters = Array.prototype.slice.call(document.querySelectorAll('.masthead span'));
+  var dispEls = letters.map(function (_, i) { return document.getElementById('disp-' + i); });
+  var blurEls = letters.map(function (_, i) { return document.getElementById('blur-' + i); });
+  var duration = 0.4;
+  var n = letters.length;
+  var stagger = n > 1 ? (1 - duration) / (n - 1) : 0;
+
+  var blocks = Array.prototype.slice.call(document.querySelectorAll('.lede, .pantry, .entry, .disclaimer'));
+  var ticking = false;
+
+  function clamp(v) { return Math.min(1, Math.max(0, v)); }
+
+  function update() {
+    var vh = window.innerHeight || 1;
+
+    if (letters.length) {
+      var p = clamp(window.scrollY / vh);
+      letters.forEach(function (el, i) {
+        var li = clamp((p - i * stagger) / duration);
+        if (dispEls[i]) dispEls[i].setAttribute('scale', String(li * 70));
+        if (blurEls[i]) blurEls[i].setAttribute('stdDeviation', String((li * 3).toFixed(2)));
+        el.style.transform = 'translateY(' + (li * li * 150).toFixed(1) + 'px)';
+        el.style.opacity = String(1 - li);
+      });
+    }
+
+    blocks.forEach(function (el) {
+      var rect = el.getBoundingClientRect();
+      var center = rect.top + rect.height / 2;
+      var enter = clamp((vh * 1.02 - center) / (vh * 0.4));
+      var exit = clamp((vh * 0.34 - center) / (vh * 0.34));
+      el.style.opacity = (enter * (1 - exit)).toFixed(3);
+      el.style.transform = 'translateX(' + (exit * 90).toFixed(1) + 'px)';
+    });
+
+    ticking = false;
+  }
+
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(update);
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  update();
 })();
 </script>
 </body>
