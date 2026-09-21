@@ -101,8 +101,10 @@
   }
 
   .pillars {
-    background-color: oklch(97% 0.01 60);
-    padding: 140px 48px 90vh 48px;
+    /* matched to the hero's visible ground (the footage's own pale backdrop
+       under the nude scrim), so the page reads as one continuous canvas */
+    background-color: rgb(241 229 218);
+    padding: 14vh 48px 95vh 48px;
   }
 
   .pillars-grid {
@@ -223,7 +225,6 @@
   var n = letters.length;
   var stagger = n > 1 ? (1 - duration) / (n - 1) : 0;
 
-  var pillarsSection = document.querySelector('.pillars');
   var pillars = Array.prototype.slice.call(document.querySelectorAll('.pillar'));
   var pDisp = pillars.map(function (_, i) { return document.getElementById('disp-p' + i); });
   var pBlur = pillars.map(function (_, i) { return document.getElementById('blur-p' + i); });
@@ -245,12 +246,12 @@
       });
     }
 
-    if (pillarsSection && pillars.length) {
-      var rect = pillarsSection.getBoundingClientRect();
-      var start = vh;
-      var end = vh - rect.height;
-      var raw = (start - rect.top) / (start - end);
-      var pp = Math.min(1, Math.max(0, raw));
+    if (pillars.length) {
+      // drive the cascade off the row's own position, so it plays out while the
+      // pillars are on screen rather than finishing while they are still below it
+      var rowRect = pillars[0].getBoundingClientRect();
+      var rowCenter = rowRect.top + rowRect.height / 2;
+      var pp = Math.min(1, Math.max(0, (vh * 1.15 - rowCenter) / (vh * 0.5)));
       pillars.forEach(function (el, i) {
         var li = Math.min(1, Math.max(0, (pp - i * pStagger) / pDuration));
 
