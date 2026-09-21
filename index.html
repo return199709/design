@@ -15,7 +15,7 @@
 
   .scroll-stage {
     position: relative;
-    height: 200vh;
+    height: 250vh;
   }
 
   .hero {
@@ -86,11 +86,11 @@
     align-items: baseline;
     width: 100%;
     margin: 0;
-    padding: 0 0 40px 0;
+    padding: 0 48px;
     color: oklch(30% 0.16 24);
     font-family: 'Archivo Black', sans-serif;
     font-weight: 400;
-    font-size: min(26vw, 44vh);
+    font-size: min(24vw, 38vh);
     line-height: 1;
     white-space: nowrap;
     text-transform: uppercase;
@@ -100,19 +100,13 @@
     display: inline-block;
   }
 
-  .pillars {
-    /* matched to the hero's visible ground (the footage's own pale backdrop
-       under the nude scrim), so the page reads as one continuous canvas */
-    background-color: rgb(241 229 218);
-    padding: 14vh 48px 95vh 48px;
-  }
-
-  .pillars-grid {
-    max-width: 1200px;
-    margin: 0 auto;
+  .pillars-row {
+    position: relative;
+    z-index: 2;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 64px;
+    padding: 0 48px 40px 48px;
   }
 
   .pillar h2 {
@@ -128,9 +122,10 @@
   .pillar p {
     margin: 0;
     font-family: 'Manrope', sans-serif;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1.6;
-    color: oklch(45% 0.02 45);
+    /* darker than the old cream section: this copy now sits over the footage */
+    color: oklch(32% 0.025 45);
   }
 </style>
 </head>
@@ -185,25 +180,23 @@
     <h1 class="headline" aria-label="Qi">
       <span style="filter: url(#dissolve-0)">Q</span><span style="filter: url(#dissolve-1)">i</span>
     </h1>
+
+    <div class="pillars-row">
+      <div class="pillar">
+        <h2 style="filter: url(#pillar-0)">Longevity</h2>
+        <p>Time-honored formulas that support the body's natural rhythm, season after season.</p>
+      </div>
+      <div class="pillar">
+        <h2 style="filter: url(#pillar-1)">Nourish</h2>
+        <p>Whole-root botanicals selected to restore balance from the inside out.</p>
+      </div>
+      <div class="pillar">
+        <h2 style="filter: url(#pillar-2)">Replenish</h2>
+        <p>Daily rituals that rebuild what modern life quietly depletes.</p>
+      </div>
+    </div>
   </div>
 </div>
-
-<section class="pillars">
-  <div class="pillars-grid">
-    <div class="pillar">
-      <h2 style="filter: url(#pillar-0)">Longevity</h2>
-      <p>Time-honored formulas that support the body's natural rhythm, season after season.</p>
-    </div>
-    <div class="pillar">
-      <h2 style="filter: url(#pillar-1)">Nourish</h2>
-      <p>Whole-root botanicals selected to restore balance from the inside out.</p>
-    </div>
-    <div class="pillar">
-      <h2 style="filter: url(#pillar-2)">Replenish</h2>
-      <p>Daily rituals that rebuild what modern life quietly depletes.</p>
-    </div>
-  </div>
-</section>
 
 <script>
 (function () {
@@ -230,45 +223,33 @@
   var pDuration = 0.6;
   var pStagger = pillars.length > 1 ? (1 - pDuration) / (pillars.length - 1) : 0;
 
+  var stage = document.querySelector('.scroll-stage');
+  var hero = document.querySelector('.hero');
   var ticking = false;
 
+  function clamp(v) { return Math.min(1, Math.max(0, v)); }
+
   function update() {
-    var vh = window.innerHeight || 1;
+    // one progress through the pinned range: Qi clears first, then the row
+    var pin = Math.max(1, stage.offsetHeight - hero.offsetHeight);
+    var p = clamp(window.scrollY / pin);
 
-    if (letters.length) {
-      var p = Math.min(1, Math.max(0, window.scrollY / vh));
-      letters.forEach(function (el, i) {
-        var li = Math.min(1, Math.max(0, (p - i * stagger) / duration));
-        if (dispEls[i]) dispEls[i].setAttribute('scale', String(li * 70));
-        if (blurEls[i]) blurEls[i].setAttribute('stdDeviation', String((li * 3).toFixed(2)));
-        el.style.opacity = String(1 - li);
-      });
-    }
+    var qp = clamp(p / 0.5);
+    letters.forEach(function (el, i) {
+      var li = clamp((qp - i * stagger) / duration);
+      if (dispEls[i]) dispEls[i].setAttribute('scale', String(li * 70));
+      if (blurEls[i]) blurEls[i].setAttribute('stdDeviation', String((li * 3).toFixed(2)));
+      el.style.opacity = String(1 - li);
+    });
 
-    if (pillars.length) {
-      // drive the cascade off the row's own position, so it plays out while the
-      // pillars are on screen rather than finishing while they are still below it
-      var rowRect = pillars[0].getBoundingClientRect();
-      var rowCenter = rowRect.top + rowRect.height / 2;
-      var pp = Math.min(1, Math.max(0, (vh * 1.15 - rowCenter) / (vh * 0.5)));
-      pillars.forEach(function (el, i) {
-        var li = Math.min(1, Math.max(0, (pp - i * pStagger) / pDuration));
-
-        // on the way out each heading dissolves like the hero headline
-        var h = el.querySelector('h2');
-        var dp = 0;
-        if (h) {
-          var hr = h.getBoundingClientRect();
-          var hc = hr.top + hr.height / 2;
-          dp = Math.min(1, Math.max(0, (vh * 0.34 - hc) / (vh * 0.34)));
-          if (pDisp[i]) pDisp[i].setAttribute('scale', String(dp * 70));
-          if (pBlur[i]) pBlur[i].setAttribute('stdDeviation', String((dp * 3).toFixed(2)));
-        }
-
-        el.style.opacity = String(li * (1 - dp));
-        el.style.transform = 'translateX(' + ((1 - li) * -24).toFixed(1) + 'px)';
-      });
-    }
+    // overlaps the tail of Qi so one hands off to the next
+    var pp = clamp((p - 0.42) / 0.58);
+    pillars.forEach(function (el, i) {
+      var li = clamp((pp - i * pStagger) / pDuration);
+      if (pDisp[i]) pDisp[i].setAttribute('scale', String(li * 70));
+      if (pBlur[i]) pBlur[i].setAttribute('stdDeviation', String((li * 3).toFixed(2)));
+      el.style.opacity = String(1 - li);
+    });
 
     ticking = false;
   }
