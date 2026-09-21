@@ -2,540 +2,519 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Journal — Herbal</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The Qi Generation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Italiana&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Noto+Serif+SC:wght@500;600&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
 <style>
   :root {
-    --nude: oklch(84% 0.045 55);
-    --ink: oklch(23% 0.03 40 / 0.78);
-    --ink-soft: oklch(45% 0.02 45 / 0.7);
-    --red: oklch(30% 0.16 24 / 0.55);
-    --glass: oklch(98% 0.012 70 / 0.34);
-    --glass-lit: oklch(99% 0.012 70 / 0.52);
-    --edge: oklch(100% 0 0 / 0.45);
-    --rule: oklch(60% 0.02 50 / 0.35);
+    /* ground matched to the hero page's nude */
+    --ground-rgb: 227 196 175;
+    --raised-rgb: 239 217 204;
+    --ink-rgb: 22 32 27;
+    --accent-rgb: 143 88 26;
+    --rule-rgb: 22 32 27;
+
+    --display: "Archivo Black", "Helvetica Neue", Arial, sans-serif;
+    --body: "Nunito Sans", "Helvetica Neue", Arial, sans-serif;
+    --cjk: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+
+    --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+    --slow: 1.35s;
+    --slower: 1.7s;
   }
 
   * { box-sizing: border-box; }
 
-  html, body { margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; color-scheme: light; }
 
   body {
-    background-color: var(--nude);
-    color: var(--ink);
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.7;
+    margin: 0;
+    background: rgb(var(--ground-rgb));
+    color: rgb(var(--ink-rgb) / 0.72);
+    font-family: var(--body);
+    font-optical-sizing: auto;
+    font-size: 1.0625rem;
+    font-weight: 380;
+    line-height: 1.78;
     overflow-x: hidden;
   }
 
-  a { color: inherit; text-decoration: none; }
+  .shell {
+    max-width: 62rem;
+    margin: 0 auto;
+    padding-inline: 1.25rem;
+  }
 
   :focus-visible {
-    outline: 2px solid var(--red);
+    outline: 2px solid rgb(var(--accent-rgb) / 0.8);
     outline-offset: 4px;
+    border-radius: 2px;
   }
 
-  .page {
-    position: relative;
-    z-index: 1;
-  }
-
-  .nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 40px 48px 0 48px;
-  }
-
-  .logo {
-    font-family: 'Italiana', serif;
-    font-size: 20px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-  }
-
-  .links {
-    display: flex;
-    gap: 48px;
-  }
-
-  .links a {
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-  }
-
-  .links a:hover { opacity: 0.55; }
-
-  .links a[aria-current="page"] {
-    color: var(--red);
-    border-bottom: 1px solid var(--red);
-    padding-bottom: 2px;
-  }
-
-  .scroll-stage {
-    position: relative;
-    height: 200vh;
-  }
-
-  .masthead-wrap {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    overflow: hidden;
-  }
+  /* ---------- masthead ---------- */
 
   .masthead {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    padding: 1rem 1.25rem;
+    padding-top: calc(1rem + env(safe-area-inset-top, 0px));
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    width: 100%;
-    margin: 0;
-    padding: 0 0 40px 0;
-    color: var(--red);
-    font-family: 'Archivo Black', sans-serif;
-    font-weight: 400;
-    font-size: 13vw;
-    line-height: 1;
-    white-space: nowrap;
+    gap: 1rem;
+    font-family: var(--display);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
+    color: rgb(var(--ink-rgb) / 0.42);
+    background: linear-gradient(to bottom, rgb(var(--ground-rgb) / 0.92), rgb(var(--ground-rgb) / 0));
+    transition: transform var(--slow) var(--ease), opacity var(--slow) var(--ease);
+    pointer-events: none;
   }
 
-  .masthead span { display: inline-block; }
-
-  .wrap {
-    max-width: 880px;
-    margin: 0 auto;
-    padding: 0 48px 45vh 48px;
+  .masthead .count {
+    font-family: var(--body);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: rgb(var(--accent-rgb) / 0.62);
   }
 
-  .lede {
-    margin: 64px 0 0 0;
+  .masthead.gone {
+    transform: translate3d(7rem, 0, 0);
+    opacity: 0;
   }
 
-  .lede h2 {
-    margin: 0 0 20px 0;
-    font-family: 'Nunito Sans', sans-serif;
-    font-weight: 300;
-    font-size: clamp(30px, 4vw, 46px);
-    line-height: 1.15;
-    color: var(--ink);
+  /* ---------- hero ---------- */
+
+  .hero {
+    min-height: 78svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: 7rem 4rem;
   }
 
-  .lede p {
-    margin: 0 0 14px 0;
-    max-width: 62ch;
-    color: var(--ink-soft);
+  .eyebrow {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: rgb(var(--ink-rgb) / 0.4);
+    margin: 0 0 1.6rem;
   }
 
-  /* the pantry: all eleven names, each one a way into its entry */
+  .eyebrow span { color: rgb(var(--accent-rgb) / 0.75); font-family: var(--cjk); letter-spacing: 0.1em; }
+
+  .hero h1 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(2.8rem, 11.5vw, 7.5rem);
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    margin: 0;
+    color: rgb(var(--ink-rgb) / 0.3);
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: rgb(var(--accent-rgb) / 0.55);
+  }
+
+  .hero .standfirst {
+    margin: 2.2rem 0 0;
+    max-width: 34rem;
+    font-size: 1.0625rem;
+    color: rgb(var(--ink-rgb) / 0.6);
+  }
+
+  .scroll-cue {
+    margin-top: 3.2rem;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgb(var(--ink-rgb) / 0.34);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .scroll-cue::after {
+    content: "";
+    width: 4.5rem;
+    height: 1px;
+    background: rgb(var(--rule-rgb) / 0.28);
+  }
+
+  /* ---------- pantry rail ---------- */
+
   .pantry {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin: 40px 0 56px 0;
+    gap: 0.5rem 1.4rem;
+    padding-block: 1.6rem;
+    border-top: 1px solid rgb(var(--rule-rgb) / 0.16);
+    border-bottom: 1px solid rgb(var(--rule-rgb) / 0.16);
+    margin-bottom: 6rem;
   }
 
   .pantry a {
-    font-family: 'Noto Serif SC', serif;
-    font-weight: 500;
-    font-size: 22px;
-    line-height: 1;
-    color: var(--red);
-    padding: 12px 16px;
-    background: var(--glass);
-    backdrop-filter: blur(12px) saturate(1.15);
-    -webkit-backdrop-filter: blur(12px) saturate(1.15);
-    border: 1px solid var(--edge);
+    font-family: var(--cjk);
+    font-size: 1.35rem;
+    text-decoration: none;
+    color: rgb(var(--accent-rgb) / 0.6);
+    transition: color 0.5s var(--ease);
   }
 
-  .pantry a:hover,
-  .pantry a:focus-visible {
-    background: var(--glass-lit);
-    border-color: var(--red);
-  }
+  .pantry a:hover { color: rgb(var(--accent-rgb) / 1); }
+
+  /* ---------- entries ---------- */
 
   .entry {
     display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 44px;
-    padding: 44px;
-    margin: 0 0 20px 0;
-    background: var(--glass);
-    backdrop-filter: blur(16px) saturate(1.15);
-    -webkit-backdrop-filter: blur(16px) saturate(1.15);
-    border: 1px solid var(--edge);
-    scroll-margin-top: 32px;
+    grid-template-columns: 1fr;
+    gap: 1.5rem 3.5rem;
+    margin-bottom: 9rem;
   }
 
-  .entry:target {
-    border-color: var(--red);
-    background: var(--glass-lit);
-  }
+  .entry-head { align-self: start; }
 
-  .entry h3 {
-    font-family: 'Noto Serif SC', serif;
-    font-weight: 600;
-    font-size: 54px;
-    line-height: 1.05;
-    letter-spacing: 0.04em;
-    color: var(--red);
+  .zh {
+    font-family: var(--cjk);
+    font-weight: 700;
+    font-size: clamp(3rem, 12vw, 5.5rem);
+    line-height: 1;
+    letter-spacing: 0.02em;
     margin: 0;
+    color: rgb(var(--ink-rgb) / 0.34);
   }
 
-  .entry .en {
+  .en {
     display: block;
-    margin: 12px 0 0 0;
-    font-size: 14px;
-    font-style: italic;
-    color: var(--ink-soft);
+    margin-top: 0.9rem;
+    font-family: var(--display);
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
     line-height: 1.5;
+    color: rgb(var(--accent-rgb) / 0.62);
   }
 
-  .entry p {
-    margin: 0 0 14px 0;
-  }
-
-  .entry p:last-of-type { margin-bottom: 0; }
+  .entry-body { max-width: 34rem; }
+  .entry-body p { margin: 0 0 1.25rem; }
+  .entry-body p:last-child { margin-bottom: 0; }
 
   .use {
-    margin: 22px 0 0 0;
-    padding-top: 16px;
-    border-top: 1px solid var(--rule);
-    font-size: 14px;
-    color: var(--ink-soft);
+    margin-top: 1.9rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgb(var(--rule-rgb) / 0.16);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: rgb(var(--ink-rgb) / 0.5);
   }
 
-  .use strong {
-    font-weight: 600;
-    color: var(--ink);
+  .use b {
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    color: rgb(var(--ink-rgb) / 0.62);
   }
 
-  .disclaimer {
-    margin: 48px 0 0 0;
-    padding: 32px 36px;
-    background: var(--glass);
-    backdrop-filter: blur(16px) saturate(1.15);
-    -webkit-backdrop-filter: blur(16px) saturate(1.15);
-    border: 1px solid var(--edge);
-    font-size: 14px;
-    color: var(--ink-soft);
+  /* ---------- colophon ---------- */
+
+  .colophon {
+    margin-bottom: 6rem;
+    padding: 2rem 1.75rem;
+    background: rgb(var(--raised-rgb) / 0.6);
+    border-radius: 2px;
+    max-width: 38rem;
+    font-size: 0.95rem;
+    color: rgb(var(--ink-rgb) / 0.55);
   }
 
-  .disclaimer p { margin: 0 0 12px 0; }
-  .disclaimer p:last-child { margin-bottom: 0; }
+  .colophon p { margin: 0 0 0.9rem; }
+  .colophon p:last-child { margin-bottom: 0; }
 
-  @media (max-width: 760px) {
-    .nav { padding: 28px 24px 0 24px; }
-    .links { gap: 22px; }
-    .wrap { padding: 0 24px 80px 24px; }
+  /* ---------- motion ---------- */
+
+  .m {
+    transition:
+      transform var(--slow) var(--ease),
+      opacity var(--slow) var(--ease);
+    will-change: transform, opacity;
+  }
+
+  .m-body { transition-duration: var(--slower); }
+
+  /* one current, left to right: everything drifts in from the left edge ... */
+  .m.below { opacity: 0; transform: translate3d(-5rem, 0, 0); }
+  .m-head.below { transform: translate3d(-7rem, 0, 0); }
+
+  /* ... and leaves off the right */
+  .m.past { opacity: 0; transform: translate3d(14rem, 0, 0); }
+  .m-head.past { transform: translate3d(18rem, 0, 0); }
+
+  @media (min-width: 52rem) {
+    body { font-size: 1.125rem; }
+    .shell { padding-inline: 2.5rem; }
     .entry {
-      grid-template-columns: 1fr;
-      gap: 20px;
-      padding: 28px;
+      grid-template-columns: 15rem 1fr;
+      margin-bottom: 11rem;
     }
-    .entry h3 { font-size: 44px; }
+    .pantry a { font-size: 1.6rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .m, .masthead { transition: none; }
+    .m.below, .m-head.below, .m.past, .m-head.past,
+    .masthead.gone { opacity: 1; transform: none; }
   }
 </style>
 </head>
 <body>
 
-<svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
-  <defs>
-    <filter id="dissolve-0" x="-100%" y="-100%" width="300%" height="300%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="2" result="noise"/>
-      <feDisplacementMap id="disp-0" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="warped"/>
-      <feGaussianBlur id="blur-0" in="warped" stdDeviation="0"/>
-    </filter>
-    <filter id="dissolve-1" x="-100%" y="-100%" width="300%" height="300%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="9" result="noise"/>
-      <feDisplacementMap id="disp-1" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="warped"/>
-      <feGaussianBlur id="blur-1" in="warped" stdDeviation="0"/>
-    </filter>
-    <filter id="dissolve-2" x="-100%" y="-100%" width="300%" height="300%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="17" result="noise"/>
-      <feDisplacementMap id="disp-2" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="warped"/>
-      <feGaussianBlur id="blur-2" in="warped" stdDeviation="0"/>
-    </filter>
-    <filter id="dissolve-3" x="-100%" y="-100%" width="300%" height="300%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="23" result="noise"/>
-      <feDisplacementMap id="disp-3" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="warped"/>
-      <feGaussianBlur id="blur-3" in="warped" stdDeviation="0"/>
-    </filter>
-    <filter id="dissolve-4" x="-100%" y="-100%" width="300%" height="300%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="31" result="noise"/>
-      <feDisplacementMap id="disp-4" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="warped"/>
-      <feGaussianBlur id="blur-4" in="warped" stdDeviation="0"/>
-    </filter>
-    <filter id="dissolve-5" x="-100%" y="-100%" width="300%" height="300%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="41" result="noise"/>
-      <feDisplacementMap id="disp-5" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="warped"/>
-      <feGaussianBlur id="blur-5" in="warped" stdDeviation="0"/>
-    </filter>
-    <filter id="dissolve-6" x="-100%" y="-100%" width="300%" height="300%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="53" result="noise"/>
-      <feDisplacementMap id="disp-6" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="warped"/>
-      <feGaussianBlur id="blur-6" in="warped" stdDeviation="0"/>
-    </filter>
-  </defs>
-</svg>
+<header class="masthead" id="masthead">
+  <span>The Qi Generation</span>
+  <span class="count">Eleven Ways</span>
+</header>
 
-<div class="page">
+<main class="shell">
 
-  <div class="scroll-stage">
-    <div class="masthead-wrap">
+  <section class="hero">
+    <p class="eyebrow m m-head">Building Energy <span>· 气</span></p>
+    <h1 class="m m-head">Eleven ways<br>to <em>generate qi</em></h1>
+    <p class="standfirst m m-body">Qi is the plain word for the energy a body runs on. These eleven dried roots, seeds and berries are how a lot of Chinese kitchens top it back up: two hours in a pot with chicken or pork bones, and it comes out as dinner.</p>
+    <p class="scroll-cue m m-body">Scroll</p>
+  </section>
 
-      <nav class="nav">
-        <a class="logo" href="index.html">Herbal</a>
-        <div class="links">
-          <a href="#">Shop</a>
-          <a href="#">Rituals</a>
-          <a href="#">About</a>
-          <a href="journal.html" aria-current="page">Journal</a>
-        </div>
-      </nav>
+  <nav class="pantry m m-body" aria-label="The eleven herbs">
+    <a href="#danggui">当归</a>
+    <a href="#lianzi">莲子</a>
+    <a href="#baihe">百合</a>
+    <a href="#maidong">麦冬</a>
+    <a href="#taizishen">太子参</a>
+    <a href="#huangqi">黄芪</a>
+    <a href="#chuanbei">川贝</a>
+    <a href="#gouqi">枸杞</a>
+    <a href="#yuzhu">玉竹</a>
+    <a href="#yimi">薏米</a>
+    <a href="#qianshi">芡实</a>
+  </nav>
 
-      <h1 class="masthead" aria-label="Journal">
-        <span style="filter: url(#dissolve-0)">J</span><span style="filter: url(#dissolve-1)">o</span><span style="filter: url(#dissolve-2)">u</span><span style="filter: url(#dissolve-3)">r</span><span style="filter: url(#dissolve-4)">n</span><span style="filter: url(#dissolve-5)">a</span><span style="filter: url(#dissolve-6)">l</span>
-      </h1>
-
+  <article class="entry" id="danggui">
+    <div class="entry-head m m-head">
+      <h2 class="zh">当归</h2>
+      <span class="en">Chinese angelica</span>
     </div>
-  </div>
-
-  <div class="wrap">
-
-    <section class="lede">
-      <h2>Eleven things in the soup pot</h2>
-      <p>These are the dried roots, seeds and berries that sit in jars in a lot of Chinese kitchens. None of them are exotic at home. They go into a pot with chicken or pork bones, simmer for two hours, and come out as dinner.</p>
-      <p>Here is what each one is, where it comes from, and what people have long used it for.</p>
-    </section>
-
-    <nav class="pantry" aria-label="The eleven herbs">
-      <a href="#danggui" lang="zh">当归</a>
-      <a href="#lianzi" lang="zh">莲子</a>
-      <a href="#baihe" lang="zh">百合</a>
-      <a href="#maidong" lang="zh">麦冬</a>
-      <a href="#taizishen" lang="zh">太子参</a>
-      <a href="#huangqi" lang="zh">黄芪</a>
-      <a href="#chuanbei" lang="zh">川贝</a>
-      <a href="#gouqi" lang="zh">枸杞</a>
-      <a href="#yuzhu" lang="zh">玉竹</a>
-      <a href="#yimi" lang="zh">薏米</a>
-      <a href="#qianshi" lang="zh">芡实</a>
-    </nav>
-
-    <article class="entry" id="danggui">
-      <div>
-        <h3 lang="zh">当归</h3>
-        <span class="en">Chinese angelica</span>
-      </div>
-      <div>
-        <p>A thick pale root with a smell you notice from across the room. The plant is a cousin of celery and parsley. In the pot it turns the broth a shade darker and gives off a warm, sweet, slightly medicinal perfume. Some people love it on the first spoonful. Others need a few tries.</p>
-        <p>Almost all of it comes from Gansu, in the cool hills around Min County. Farmers let the plant grow two or three years before lifting the roots in late autumn. The roots get tied into bundles and dried slowly in a shed, sometimes over a low smoky fire. That slow drying is where the deep smell comes from.</p>
-        <p>This is the herb people reach for when the blood feels thin and the body feels cold. It is the classic one for cold hands and feet that never warm up. Many families cook it after a stretch of feeling worn out, and women often cook it after their period.</p>
-        <p class="use"><strong>How it is used:</strong> 3 g in the pot. Simmer with red dates and fresh ginger, or stew it with lamb.</p>
-      </div>
-    </article>
-
-    <article class="entry" id="lianzi">
-      <div>
-        <h3 lang="zh">莲子</h3>
-        <span class="en">Lotus seed</span>
-      </div>
-      <div>
-        <p>Small ivory seeds, hard as pebbles when dry, soft and a little floury after a long simmer. They come from the seed pod of the lotus, the same plant with the wide flat leaves you see covering a pond.</p>
-        <p>Hunan, Fujian and Jiangxi grow the best known ones. In late summer the flowers fall away and the pods turn dark and heavy. Pickers go out in flat boats and snap the pods off by hand. The seeds get popped out, the thin skin rubbed away, and the tiny green sprout in the middle pulled out, because that sprout is bitter. Then they dry in the sun.</p>
-        <p>Quietly sweet in soup. People use it to settle a restless heart and to steady a weak stomach. If someone is jumpy, sleeping badly and eating little, this is a common thing to cook for them. It has an old reputation for being good for the skin too.</p>
-        <p class="use"><strong>How it is used:</strong> 20 g in the pot.</p>
-      </div>
-    </article>
-
-    <article class="entry" id="baihe">
-      <div>
-        <h3 lang="zh">百合</h3>
-        <span class="en">Lily bulb</span>
-      </div>
-      <div>
-        <p>Thin curved white pieces, about the size of a fingernail. They look like petals but they are not. They are the scales of a lily bulb, taken apart one by one.</p>
-        <p>Lanzhou in Gansu grows the sweet kind you can eat straight from the bag. Hunan grows a more bitter kind used mainly as medicine. The bulbs are dug in autumn once the plant above ground has died back. Then the scales are separated, dipped quickly in hot water, and dried.</p>
-        <p>Soft and a little sweet in soup. Used for a dry cough and for a busy mind. It is an autumn favourite, when the air turns dry and throats start to scratch. Also cooked for people who lie awake with their thoughts running.</p>
-        <p class="use"><strong>How it is used:</strong> 10 g in the pot.</p>
-      </div>
-    </article>
-
-    <article class="entry" id="maidong">
-      <div>
-        <h3 lang="zh">麦冬</h3>
-        <span class="en">Lilyturf root, or Radix Ophiopogonis</span>
-      </div>
-      <div>
-        <p>Tiny amber tubers, plump and slightly translucent, each one about the size of a swollen grain of rice. The plant is a low tufty grass that gets planted as ground cover in parks, so you may have walked past it many times.</p>
-        <p>Zhejiang and Sichuan are the two big growing areas. The tubers are dug in spring or early summer, washed, then rolled between the hands and laid out in the sun again and again until the water is gone and they turn clear at the edges.</p>
-        <p>Everything about this one is about moisture. It is used for a dry throat, a dry cough, and the kind of thirst that drinking water does not really fix. It is also used for that hot restless feeling late at night that keeps someone from falling asleep.</p>
-        <p class="use"><strong>How it is used:</strong> 10 g in the pot.</p>
-      </div>
-    </article>
-
-    <article class="entry" id="taizishen">
-      <div>
-        <h3 lang="zh">太子参</h3>
-        <span class="en">Pseudostellaria root</span>
-      </div>
-      <div>
-        <p>Thin pale roots, no thicker than a matchstick, faintly sweet. The name means prince ginseng. People also call it child ginseng, because it is mild enough for children and for anyone who finds real ginseng too strong and too heating.</p>
-        <p>Fujian grows most of it, especially around Zherong county, with more coming from Guizhou and Anhui. It is dug in summer, dipped for a moment in boiling water, then dried. The quick dip is what keeps the roots looking pale and clean.</p>
-        <p>This is the gentle way to build energy back up. It suits someone who is tired, sweats easily through the day, has no appetite, and needs something soft rather than strong. A good starting herb if you are new to all of this.</p>
-        <p class="use"><strong>How it is used:</strong> 5 g in the pot.</p>
-      </div>
-    </article>
-
-    <article class="entry" id="huangqi">
-      <div>
-        <h3 lang="zh">黄芪</h3>
-        <span class="en">Astragalus root</span>
-      </div>
-      <div>
-        <p>Long yellow slices cut across a taproot, flat like a tongue depressor, with a sweet woody taste that comes through clearly in broth.</p>
-        <p>It grows in dry cold soil in Inner Mongolia, Shanxi and Gansu. The plant needs at least three years underground before the root is worth lifting, which is a slow thing to ask of a farm. Roots are dug in spring or autumn, sliced and dried. Some are cooked with honey first, which makes them sweeter and gentler on the stomach.</p>
-        <p>The workhorse for low energy. People cook it when someone tires after very little effort, sweats without moving, picks up every cold going around the office, or carries puffiness in the legs. It is probably the most common tonic herb in a home kitchen.</p>
-        <p class="use"><strong>How it is used:</strong> 5 g in the pot, or steeped in hot water like tea.</p>
-      </div>
-    </article>
-
-    <article class="entry" id="chuanbei">
-      <div>
-        <h3 lang="zh">川贝</h3>
-        <span class="en">Fritillaria bulb</span>
-      </div>
-      <div>
-        <p>Tiny white bulbs, each smaller than a pea, shaped like a flower that never opened. It is the expensive one in the drawer, and there is a good reason for that.</p>
-        <p>It grows high in the mountains of Sichuan, Qinghai and Tibet, often above three thousand metres. For centuries people climbed up in summer and dug the bulbs out one at a time, then dried them in the sun. That work is most of the price. A lot of it is farmed now, but the wild mountain kind is still gathered by hand.</p>
-        <p>Known above all for cough, especially the dry kind that hangs around for weeks after a cold has gone. It works quietly and is not harsh.</p>
-        <p class="use"><strong>How it is used:</strong> 3 g, steamed inside a pear with rock sugar.</p>
-      </div>
-    </article>
-
-    <article class="entry" id="gouqi">
-      <div>
-        <h3 lang="zh">枸杞</h3>
-        <span class="en">Goji berry, or Chinese wolfberry</span>
-      </div>
-      <div>
-        <p>Small soft red berries, sweet, a bit like a raisin with a tomato edge. The one on this list you have most likely already eaten.</p>
-        <p>Ningxia grows the famous ones, above all Zhongning county along the Yellow River, with more from Gansu, Qinghai and Xinjiang. Picking runs through summer and autumn in several rounds, always by hand, because the fruit bruises the moment you are rough with it. The berries rest in the shade first so they do not split, then finish drying in the sun.</p>
-        <p>Best known for the eyes. Also used for the liver and for a body that feels dried out. It is the easiest one here to work into a normal day. A small handful dropped into hot water is enough.</p>
-        <p class="use"><strong>How it is used:</strong> 5 g, in soup or steeped in hot water.</p>
-      </div>
-    </article>
-
-    <article class="entry" id="yuzhu">
-      <div>
-        <h3 lang="zh">玉竹</h3>
-        <span class="en">Fragrant Solomon's seal</span>
-      </div>
-      <div>
-        <p>Pale yellow slices cut from a knobbly underground stem. Faintly sweet, a little sticky once it has cooked, and very easy to like.</p>
-        <p>Hunan, Henan and Jiangsu grow most of it. The stems are dug in autumn, washed, dried in the sun until they go soft, rolled by hand to press the water out, then dried again. That rolling is why the finished pieces look flattened and slightly glossy.</p>
-        <p>It adds moisture without sitting heavy. Used for a dry mouth, dry skin and a dry cough. It is easy on the stomach, so it suits people who cannot handle stronger tonics. It also shows up often in soups cooked for people keeping an eye on their blood sugar.</p>
-        <p class="use"><strong>How it is used:</strong> 10 g in the pot.</p>
-      </div>
-    </article>
-
-    <article class="entry" id="yimi">
-      <div>
-        <h3 lang="zh">薏米</h3>
-        <span class="en">Job's tears, sold as pearl barley</span>
-      </div>
-      <div>
-        <p>Small pale grains with a groove down one side. It is not really barley, despite the name on the bag. Chewy, nutty, cheap, and sold in every Asian grocery.</p>
-        <p>Guizhou grows a lot of it, especially around Xingren county, with more from Fujian and Hebei. It is harvested in autumn once the grain hardens on the stalk, then threshed and hulled the way any other grain is.</p>
-        <p>This is the one for damp. In plain terms that means puffiness, heaviness in the limbs, sluggish mornings, skin that keeps breaking out. It is cooling by nature, so this is worth repeating: if you run cold already, go easy on it.</p>
-        <p class="use"><strong>How it is used:</strong> 20 g in the pot. Toasting it in a dry pan first makes it warmer and kinder to a cold stomach.</p>
-      </div>
-    </article>
-
-    <article class="entry" id="qianshi">
-      <div>
-        <h3 lang="zh">芡实</h3>
-        <span class="en">Gordon euryale seed, or fox nut</span>
-      </div>
-      <div>
-        <p>Little round ivory seeds, hard as gravel when dry, floury and soft after a long simmer. They break down just enough to thicken a soup slightly.</p>
-        <p>They come from a water plant with enormous spiny leaves, grown in Jiangsu around Suzhou, and in Anhui and Shandong. The fruit is spiny too. In autumn harvesters wade in, pull the fruit out, split it open, pick the seeds out by hand, then hull each seed one at a time. It is slow work, which is why the good stuff is not cheap.</p>
-        <p>This one holds things in. It is used for loose digestion, for tired kidneys, and for excess discharge. It almost always goes in alongside lotus seed, and the two of them together are a standard pairing in home soups.</p>
-        <p class="use"><strong>How it is used:</strong> 10 g in the pot.</p>
-      </div>
-    </article>
-
-    <div class="disclaimer">
-      <p>These are traditional uses, written down the way families and herb shops have passed them along for a long time. They are not medical advice.</p>
-      <p>If you are pregnant, taking medication, or managing a health condition, talk to a doctor or a trained practitioner before adding any of these to your routine.</p>
+    <div class="entry-body m m-body">
+      <p>A thick pale root with a smell you notice from across the room. The plant is a cousin of celery and parsley. In the pot it turns the broth a shade darker and gives off a warm, sweet, slightly medicinal perfume. Some people love it on the first spoonful. Others need a few tries.</p>
+      <p>Almost all of it comes from Gansu, in the cool hills around Min County. Farmers let the plant grow two or three years before lifting the roots in late autumn. The roots get tied into bundles and dried slowly in a shed, sometimes over a low smoky fire. That slow drying is where the deep smell comes from.</p>
+      <p>This is the herb people reach for when the blood feels thin and the body feels cold. It is the classic one for cold hands and feet that never warm up. Many families cook it after a stretch of feeling worn out, and women often cook it after their period.</p>
+      <p class="use"><b>How it is used</b><br>3 g in the pot. Simmer with red dates and fresh ginger, or stew it with lamb.</p>
     </div>
+  </article>
 
-  </div>
-</div>
+  <article class="entry" id="lianzi">
+    <div class="entry-head m m-head">
+      <h2 class="zh">莲子</h2>
+      <span class="en">Lotus seed</span>
+    </div>
+    <div class="entry-body m m-body">
+      <p>Small ivory seeds, hard as pebbles when dry, soft and a little floury after a long simmer. They come from the seed pod of the lotus, the same plant with the wide flat leaves you see covering a pond.</p>
+      <p>Hunan, Fujian and Jiangxi grow the best known ones. In late summer the flowers fall away and the pods turn dark and heavy. Pickers go out in flat boats and snap the pods off by hand. The seeds get popped out, the thin skin rubbed away, and the tiny green sprout in the middle pulled out, because that sprout is bitter. Then they dry in the sun.</p>
+      <p>Quietly sweet in soup. People use it to settle a restless heart and to steady a weak stomach. If someone is jumpy, sleeping badly and eating little, this is a common thing to cook for them. It has an old reputation for being good for the skin too.</p>
+      <p class="use"><b>How it is used</b><br>20 g in the pot.</p>
+    </div>
+  </article>
+
+  <article class="entry" id="baihe">
+    <div class="entry-head m m-head">
+      <h2 class="zh">百合</h2>
+      <span class="en">Lily bulb</span>
+    </div>
+    <div class="entry-body m m-body">
+      <p>Thin curved white pieces, about the size of a fingernail. They look like petals but they are not. They are the scales of a lily bulb, taken apart one by one.</p>
+      <p>Lanzhou in Gansu grows the sweet kind you can eat straight from the bag. Hunan grows a more bitter kind used mainly as medicine. The bulbs are dug in autumn once the plant above ground has died back. Then the scales are separated, dipped quickly in hot water, and dried.</p>
+      <p>Soft and a little sweet in soup. Used for a dry cough and for a busy mind. It is an autumn favourite, when the air turns dry and throats start to scratch. Also cooked for people who lie awake with their thoughts running.</p>
+      <p class="use"><b>How it is used</b><br>10 g in the pot.</p>
+    </div>
+  </article>
+
+  <article class="entry" id="maidong">
+    <div class="entry-head m m-head">
+      <h2 class="zh">麦冬</h2>
+      <span class="en">Lilyturf root</span>
+    </div>
+    <div class="entry-body m m-body">
+      <p>Tiny amber tubers, plump and slightly translucent, each one about the size of a swollen grain of rice. The plant is a low tufty grass that gets planted as ground cover in parks, so you may have walked past it many times.</p>
+      <p>Zhejiang and Sichuan are the two big growing areas. The tubers are dug in spring or early summer, washed, then rolled between the hands and laid out in the sun again and again until the water is gone and they turn clear at the edges.</p>
+      <p>Everything about this one is about moisture. It is used for a dry throat, a dry cough, and the kind of thirst that drinking water does not really fix. It is also used for that hot restless feeling late at night that keeps someone from falling asleep.</p>
+      <p class="use"><b>How it is used</b><br>10 g in the pot.</p>
+    </div>
+  </article>
+
+  <article class="entry" id="taizishen">
+    <div class="entry-head m m-head">
+      <h2 class="zh">太子参</h2>
+      <span class="en">Pseudostellaria root</span>
+    </div>
+    <div class="entry-body m m-body">
+      <p>Thin pale roots, no thicker than a matchstick, faintly sweet. The name means prince ginseng. People also call it child ginseng, because it is mild enough for children and for anyone who finds real ginseng too strong and too heating.</p>
+      <p>Fujian grows most of it, especially around Zherong county, with more coming from Guizhou and Anhui. It is dug in summer, dipped for a moment in boiling water, then dried. The quick dip is what keeps the roots looking pale and clean.</p>
+      <p>This is the gentle way to build energy back up. It suits someone who is tired, sweats easily through the day, has no appetite, and needs something soft rather than strong. A good starting herb if you are new to all of this.</p>
+      <p class="use"><b>How it is used</b><br>5 g in the pot.</p>
+    </div>
+  </article>
+
+  <article class="entry" id="huangqi">
+    <div class="entry-head m m-head">
+      <h2 class="zh">黄芪</h2>
+      <span class="en">Astragalus root</span>
+    </div>
+    <div class="entry-body m m-body">
+      <p>Long yellow slices cut across a taproot, flat like a tongue depressor, with a sweet woody taste that comes through clearly in broth.</p>
+      <p>It grows in dry cold soil in Inner Mongolia, Shanxi and Gansu. The plant needs at least three years underground before the root is worth lifting, which is a slow thing to ask of a farm. Roots are dug in spring or autumn, sliced and dried. Some are cooked with honey first, which makes them sweeter and gentler on the stomach.</p>
+      <p>The workhorse for low energy. People cook it when someone tires after very little effort, sweats without moving, picks up every cold going around the office, or carries puffiness in the legs. It is probably the most common tonic herb in a home kitchen.</p>
+      <p class="use"><b>How it is used</b><br>5 g in the pot, or steeped in hot water like tea.</p>
+    </div>
+  </article>
+
+  <article class="entry" id="chuanbei">
+    <div class="entry-head m m-head">
+      <h2 class="zh">川贝</h2>
+      <span class="en">Fritillaria bulb</span>
+    </div>
+    <div class="entry-body m m-body">
+      <p>Tiny white bulbs, each smaller than a pea, shaped like a flower that never opened. It is the expensive one in the drawer, and there is a good reason for that.</p>
+      <p>It grows high in the mountains of Sichuan, Qinghai and Tibet, often above three thousand metres. For centuries people climbed up in summer and dug the bulbs out one at a time, then dried them in the sun. That work is most of the price. A lot of it is farmed now, but the wild mountain kind is still gathered by hand.</p>
+      <p>Known above all for cough, especially the dry kind that hangs around for weeks after a cold has gone. It works quietly and is not harsh.</p>
+      <p class="use"><b>How it is used</b><br>3 g, steamed inside a pear with rock sugar.</p>
+    </div>
+  </article>
+
+  <article class="entry" id="gouqi">
+    <div class="entry-head m m-head">
+      <h2 class="zh">枸杞</h2>
+      <span class="en">Goji berry</span>
+    </div>
+    <div class="entry-body m m-body">
+      <p>Small soft red berries, sweet, a bit like a raisin with a tomato edge. The one on this list you have most likely already eaten.</p>
+      <p>Ningxia grows the famous ones, above all Zhongning county along the Yellow River, with more from Gansu, Qinghai and Xinjiang. Picking runs through summer and autumn in several rounds, always by hand, because the fruit bruises the moment you are rough with it. The berries rest in the shade first so they do not split, then finish drying in the sun.</p>
+      <p>Best known for the eyes. Also used for the liver and for a body that feels dried out. It is the easiest one here to work into a normal day. A small handful dropped into hot water is enough.</p>
+      <p class="use"><b>How it is used</b><br>5 g, in soup or steeped in hot water.</p>
+    </div>
+  </article>
+
+  <article class="entry" id="yuzhu">
+    <div class="entry-head m m-head">
+      <h2 class="zh">玉竹</h2>
+      <span class="en">Fragrant Solomon's seal</span>
+    </div>
+    <div class="entry-body m m-body">
+      <p>Pale yellow slices cut from a knobbly underground stem. Faintly sweet, a little sticky once it has cooked, and very easy to like.</p>
+      <p>Hunan, Henan and Jiangsu grow most of it. The stems are dug in autumn, washed, dried in the sun until they go soft, rolled by hand to press the water out, then dried again. That rolling is why the finished pieces look flattened and slightly glossy.</p>
+      <p>It adds moisture without sitting heavy. Used for a dry mouth, dry skin and a dry cough. It is easy on the stomach, so it suits people who cannot handle stronger tonics. It also shows up often in soups cooked for people keeping an eye on their blood sugar.</p>
+      <p class="use"><b>How it is used</b><br>10 g in the pot.</p>
+    </div>
+  </article>
+
+  <article class="entry" id="yimi">
+    <div class="entry-head m m-head">
+      <h2 class="zh">薏米</h2>
+      <span class="en">Job's tears</span>
+    </div>
+    <div class="entry-body m m-body">
+      <p>Small pale grains with a groove down one side. It is not really barley, despite the name on the bag. Chewy, nutty, cheap, and sold in every Asian grocery.</p>
+      <p>Guizhou grows a lot of it, especially around Xingren county, with more from Fujian and Hebei. It is harvested in autumn once the grain hardens on the stalk, then threshed and hulled the way any other grain is.</p>
+      <p>This is the one for damp. In plain terms that means puffiness, heaviness in the limbs, sluggish mornings, skin that keeps breaking out. It is cooling by nature, so the note is worth repeating: if you run cold already, go easy on it.</p>
+      <p class="use"><b>How it is used</b><br>20 g in the pot. Toasting it in a dry pan first makes it warmer and kinder to a cold stomach.</p>
+    </div>
+  </article>
+
+  <article class="entry" id="qianshi">
+    <div class="entry-head m m-head">
+      <h2 class="zh">芡实</h2>
+      <span class="en">Gordon euryale seed</span>
+    </div>
+    <div class="entry-body m m-body">
+      <p>Little round ivory seeds, hard as gravel when dry, floury and soft after a long simmer. They break down just enough to thicken a soup slightly.</p>
+      <p>They come from a water plant with enormous spiny leaves, grown in Jiangsu around Suzhou, and in Anhui and Shandong. The fruit is spiny too. In autumn harvesters wade in, pull the fruit out, split it open, pick the seeds out by hand, then hull each seed one at a time. It is slow work, which is why the good stuff is not cheap.</p>
+      <p>This one holds things in. It is used for loose digestion, for tired kidneys, and for excess discharge. It almost always goes in alongside lotus seed, and the two of them together are a standard pairing in home soups.</p>
+      <p class="use"><b>How it is used</b><br>10 g in the pot.</p>
+    </div>
+  </article>
+
+  <section class="colophon m m-body">
+    <p>Qi here is used the way families and herb shops use it, and these are traditional uses passed along for a long time. They are not medical advice.</p>
+    <p>If you are pregnant, taking medication, or managing a health condition, talk to a doctor or a trained practitioner before adding any of these to your routine.</p>
+  </section>
+
+</main>
 
 <script>
-(function () {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  (function () {
+    var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var masthead = document.getElementById("masthead");
+    if (reduced) return;
 
-  var letters = Array.prototype.slice.call(document.querySelectorAll('.masthead span'));
-  var dispEls = letters.map(function (_, i) { return document.getElementById('disp-' + i); });
-  var blurEls = letters.map(function (_, i) { return document.getElementById('blur-' + i); });
-  var duration = 0.4;
-  var n = letters.length;
-  var stagger = n > 1 ? (1 - duration) / (n - 1) : 0;
-
-  var blocks = Array.prototype.slice.call(document.querySelectorAll('.lede, .pantry, .entry, .disclaimer'));
-  var ticking = false;
-
-  function clamp(v) { return Math.min(1, Math.max(0, v)); }
-
-  function update() {
-    var vh = window.innerHeight || 1;
-
-    if (letters.length) {
-      var p = clamp(window.scrollY / vh);
-      letters.forEach(function (el, i) {
-        var li = clamp((p - i * stagger) / duration);
-        if (dispEls[i]) dispEls[i].setAttribute('scale', String(li * 70));
-        if (blurEls[i]) blurEls[i].setAttribute('stdDeviation', String((li * 3).toFixed(2)));
-        el.style.transform = 'translateY(' + (li * li * 150).toFixed(1) + 'px)';
-        el.style.opacity = String(1 - li);
+    // Each paragraph travels on its own, so a block empties line by line
+    // instead of leaving all at once.
+    Array.prototype.forEach.call(document.querySelectorAll(".entry-body"), function (b) {
+      b.classList.remove("m", "m-body");
+      Array.prototype.forEach.call(b.children, function (c) {
+        c.classList.add("m", "m-body");
       });
-    }
-
-    blocks.forEach(function (el) {
-      var rect = el.getBoundingClientRect();
-      var center = rect.top + rect.height / 2;
-      var enter = clamp((vh * 1.02 - center) / (vh * 0.4));
-      var exit = clamp((vh * 0.34 - center) / (vh * 0.34));
-      el.style.opacity = (enter * (1 - exit)).toFixed(3);
-      el.style.transform = 'translateX(' + (exit * 90).toFixed(1) + 'px)';
     });
 
-    ticking = false;
-  }
+    var items = Array.prototype.slice.call(document.querySelectorAll(".m"));
 
-  function onScroll() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(update);
-  }
+    // Stagger siblings inside each entry body so paragraphs drift, not snap.
+    items.forEach(function (el) {
+      var i = Array.prototype.indexOf.call(el.parentNode.children, el);
+      el.style.transitionDelay = Math.min(i, 4) * 70 + "ms";
+    });
 
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll, { passive: true });
-  update();
-})();
+    var ticking = false;
+
+    function measure() {
+      ticking = false;
+      var vh = window.innerHeight;
+
+      items.forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        var head = el.classList.contains("m-head");
+        // still below the reading band
+        var below = r.top > vh * 0.92;
+        // carried up out of the band, so it flows off to the right
+        var past = r.bottom < vh * (head ? 0.42 : 0.34);
+
+        el.classList.toggle("below", below);
+        el.classList.toggle("past", !below && past);
+      });
+
+      masthead.classList.toggle("gone", window.scrollY > vh * 0.5);
+    }
+
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(measure);
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    measure();
+  })();
 </script>
+
 </body>
 </html>
