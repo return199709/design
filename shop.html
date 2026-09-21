@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Shop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Italiana&family=Manrope:wght@400;500;600&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ground-rgb: 250 244 239;
+    --raised-rgb: 243 235 227;
+    --ink-rgb: 22 32 27;
+    --accent-rgb: 143 88 26;
+
+    --display: "Archivo Black", "Helvetica Neue", Arial, sans-serif;
+    --body: "Nunito Sans", "Helvetica Neue", Arial, sans-serif;
+    --cjk: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; color-scheme: light; }
+
+  body {
+    margin: 0;
+    background: rgb(var(--ground-rgb));
+    color: rgb(var(--ink-rgb) / 0.72);
+    font-family: var(--body);
+    font-optical-sizing: auto;
+    font-size: 1.0625rem;
+    font-weight: 380;
+    line-height: 1.78;
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent-rgb) / 0.8);
+    outline-offset: 4px;
+  }
+
+  /* ---------- site nav ---------- */
+
+  .sitenav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.6rem 1.25rem 2.4rem;
+    padding-top: calc(1.6rem + env(safe-area-inset-top, 0px));
+    background: linear-gradient(to bottom, rgb(var(--ground-rgb) / 0.96), rgb(var(--ground-rgb) / 0));
+  }
+
+  .sitenav .logo {
+    font-family: 'Italiana', serif;
+    font-size: 20px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgb(var(--ink-rgb) / 0.78);
+  }
+
+  .sitenav .links { display: flex; gap: 2.4rem; }
+
+  .sitenav .links a {
+    font-family: 'Manrope', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgb(var(--ink-rgb) / 0.6);
+  }
+
+  .sitenav .links a:hover { opacity: 0.55; }
+
+  .sitenav .links a[aria-current="page"] {
+    color: rgb(var(--accent-rgb) / 0.95);
+    border-bottom: 1px solid rgb(var(--accent-rgb) / 0.55);
+    padding-bottom: 2px;
+  }
+
+  /* ---------- page ---------- */
+
+  .shell {
+    max-width: 68rem;
+    margin: 0 auto;
+    padding: 9rem 1.25rem 7rem;
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(2.6rem, 9vw, 5.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    margin: 0;
+    color: rgb(var(--ink-rgb) / 0.32);
+  }
+
+  .lead {
+    margin: 1.6rem 0 0;
+    max-width: 34rem;
+    color: rgb(var(--ink-rgb) / 0.6);
+  }
+
+  /* ---------- the windows ---------- */
+
+  .grid {
+    margin-top: 4.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .window {
+    display: flex;
+    flex-direction: column;
+    min-height: 15rem;
+    padding: 1.75rem;
+    text-decoration: none;
+    color: inherit;
+    background: rgb(var(--raised-rgb) / 0.55);
+    border: 1px solid rgb(var(--ink-rgb) / 0.14);
+    transition: background 0.4s ease, border-color 0.4s ease;
+  }
+
+  .window:hover {
+    background: rgb(var(--raised-rgb) / 0.95);
+    border-color: rgb(var(--accent-rgb) / 0.45);
+  }
+
+  .window .zh {
+    font-family: var(--cjk);
+    font-weight: 700;
+    font-size: 2.6rem;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+    color: rgb(var(--ink-rgb) / 0.4);
+  }
+
+  .window .en {
+    margin-top: 0.5rem;
+    font-family: var(--display);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    line-height: 1.5;
+    color: rgb(var(--accent-rgb) / 0.66);
+  }
+
+  .window .note {
+    margin-top: 1.1rem;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: rgb(var(--ink-rgb) / 0.62);
+  }
+
+  .window .dose {
+    margin-top: auto;
+    padding-top: 1.2rem;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgb(var(--ink-rgb) / 0.45);
+  }
+
+  .footnote {
+    margin: 4rem 0 0;
+    max-width: 38rem;
+    font-size: 0.9rem;
+    color: rgb(var(--ink-rgb) / 0.5);
+  }
+
+  @media (min-width: 40rem) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    .shell { padding-inline: 2.5rem; }
+  }
+
+  @media (min-width: 64rem) {
+    .grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<header class="sitenav">
+  <a class="logo" href="index.html">Herbal</a>
+  <div class="links">
+    <a href="shop.html" aria-current="page">Shop</a>
+    <a href="#">Rituals</a>
+    <a href="about.html">About</a>
+    <a href="journal.html">Journal</a>
+  </div>
+</header>
+
+<main class="shell">
+
+  <h1>Shop</h1>
+  <p class="lead">The eleven dried roots, seeds and berries that go into the pot. Each one is written up in full in the Journal.</p>
+
+  <div class="grid">
+
+    <a class="window" href="journal.html#danggui">
+      <span class="zh">当归</span>
+      <span class="en">Chinese angelica</span>
+      <span class="note">Warm, sweet and faintly medicinal. The one people reach for when the body runs cold.</span>
+      <span class="dose">3 g in the pot</span>
+    </a>
+
+    <a class="window" href="journal.html#lianzi">
+      <span class="zh">莲子</span>
+      <span class="en">Lotus seed</span>
+      <span class="note">Quietly sweet, soft after a long simmer. Used to settle a restless heart.</span>
+      <span class="dose">20 g in the pot</span>
+    </a>
+
+    <a class="window" href="journal.html#baihe">
+      <span class="zh">百合</span>
+      <span class="en">Lily bulb</span>
+      <span class="note">Soft and a little sweet. An autumn one, for a dry cough and a busy mind.</span>
+      <span class="dose">10 g in the pot</span>
+    </a>
+
+    <a class="window" href="journal.html#maidong">
+      <span class="zh">麦冬</span>
+      <span class="en">Lilyturf root</span>
+      <span class="note">Tiny amber tubers. Everything about this one is moisture: a dry throat, a thirst water does not fix.</span>
+      <span class="dose">10 g in the pot</span>
+    </a>
+
+    <a class="window" href="journal.html#taizishen">
+      <span class="zh">太子参</span>
+      <span class="en">Pseudostellaria root</span>
+      <span class="note">Prince ginseng. The gentle way to build energy back up, mild enough for children.</span>
+      <span class="dose">5 g in the pot</span>
+    </a>
+
+    <a class="window" href="journal.html#huangqi">
+      <span class="zh">黄芪</span>
+      <span class="en">Astragalus root</span>
+      <span class="note">Sweet and woody in broth. The workhorse for low energy, and the most common tonic in a home kitchen.</span>
+      <span class="dose">5 g, or steeped like tea</span>
+    </a>
+
+    <a class="window" href="journal.html#chuanbei">
+      <span class="zh">川贝</span>
+      <span class="en">Fritillaria bulb</span>
+      <span class="note">The expensive one, gathered by hand high in the mountains. Known above all for a dry cough.</span>
+      <span class="dose">3 g, steamed in a pear</span>
+    </a>
+
+    <a class="window" href="journal.html#gouqi">
+      <span class="zh">枸杞</span>
+      <span class="en">Goji berry</span>
+      <span class="note">Sweet, a bit like a raisin with a tomato edge. Best known for the eyes, and the easiest one to use daily.</span>
+      <span class="dose">5 g, in soup or hot water</span>
+    </a>
+
+    <a class="window" href="journal.html#yuzhu">
+      <span class="zh">玉竹</span>
+      <span class="en">Fragrant Solomon's seal</span>
+      <span class="note">Faintly sweet, a little sticky once cooked. Adds moisture without sitting heavy.</span>
+      <span class="dose">10 g in the pot</span>
+    </a>
+
+    <a class="window" href="journal.html#yimi">
+      <span class="zh">薏米</span>
+      <span class="en">Job's tears</span>
+      <span class="note">Chewy and nutty. This is the one for damp — but it is cooling, so go easy if you already run cold.</span>
+      <span class="dose">20 g in the pot</span>
+    </a>
+
+    <a class="window" href="journal.html#qianshi">
+      <span class="zh">芡实</span>
+      <span class="en">Gordon euryale seed</span>
+      <span class="note">Floury and soft after a long simmer, enough to thicken a soup. Almost always cooked alongside lotus seed.</span>
+      <span class="dose">10 g in the pot</span>
+    </a>
+
+  </div>
+
+  <p class="footnote">Quantities are the amounts used in a household pot, not a dose. These are traditional uses, not medical advice.</p>
+
+</main>
+
+</body>
+</html>

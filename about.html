@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>About</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Italiana&family=Manrope:wght@400;500;600&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ground-rgb: 250 244 239;
+    --ink-rgb: 22 32 27;
+    --accent-rgb: 143 88 26;
+
+    --display: "Archivo Black", "Helvetica Neue", Arial, sans-serif;
+    --body: "Nunito Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; color-scheme: light; }
+
+  body {
+    margin: 0;
+    background: rgb(var(--ground-rgb));
+    color: rgb(var(--ink-rgb) / 0.72);
+    font-family: var(--body);
+    font-optical-sizing: auto;
+    font-size: 1.0625rem;
+    font-weight: 380;
+    line-height: 1.78;
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent-rgb) / 0.8);
+    outline-offset: 4px;
+  }
+
+  /* ---------- site nav ---------- */
+
+  .sitenav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.6rem 1.25rem 2.4rem;
+    padding-top: calc(1.6rem + env(safe-area-inset-top, 0px));
+    background: linear-gradient(to bottom, rgb(var(--ground-rgb) / 0.96), rgb(var(--ground-rgb) / 0));
+  }
+
+  .sitenav .logo {
+    font-family: 'Italiana', serif;
+    font-size: 20px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgb(var(--ink-rgb) / 0.78);
+  }
+
+  .sitenav .links { display: flex; gap: 2.4rem; }
+
+  .sitenav .links a {
+    font-family: 'Manrope', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgb(var(--ink-rgb) / 0.6);
+  }
+
+  .sitenav .links a:hover { opacity: 0.55; }
+
+  .sitenav .links a[aria-current="page"] {
+    color: rgb(var(--accent-rgb) / 0.95);
+    border-bottom: 1px solid rgb(var(--accent-rgb) / 0.55);
+    padding-bottom: 2px;
+  }
+
+  /* ---------- page ---------- */
+
+  .shell {
+    max-width: 44rem;
+    margin: 0 auto;
+    padding: 9rem 1.25rem 8rem;
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(2.6rem, 9vw, 5.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    margin: 0 0 2.4rem;
+    color: rgb(var(--ink-rgb) / 0.32);
+  }
+
+  p { margin: 0 0 1.4rem; }
+  p:last-child { margin-bottom: 0; }
+
+  .shell a { color: rgb(var(--accent-rgb) / 0.9); }
+
+  @media (min-width: 40rem) {
+    .shell { padding-inline: 2.5rem; font-size: 1.125rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="sitenav">
+  <a class="logo" href="index.html">Herbal</a>
+  <div class="links">
+    <a href="shop.html">Shop</a>
+    <a href="#">Rituals</a>
+    <a href="about.html" aria-current="page">About</a>
+    <a href="journal.html">Journal</a>
+  </div>
+</header>
+
+<main class="shell">
+
+  <h1>About</h1>
+
+  <p>Herbal is a small shop for the dried roots, seeds and berries that go into a Chinese soup pot.</p>
+
+  <p>Every ingredient is organically grown and sourced to a very high grade, from the mountain country of rural China — Gansu, Ningxia, Sichuan, Fujian and the other regions these herbs have always come from.</p>
+
+  <p>Eleven of them are written up in the <a href="journal.html">Journal</a>: what each one is, where it grows, and what people have long used it for. The same eleven are in the <a href="shop.html">Shop</a>.</p>
+
+</main>
+
+</body>
+</html>
