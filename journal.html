@@ -17,7 +17,6 @@
 
     --display: "Archivo Black", "Helvetica Neue", Arial, sans-serif;
     --body: "Nunito Sans", "Helvetica Neue", Arial, sans-serif;
-    --cjk: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
 
     --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
     --slow: 1.35s;
@@ -125,8 +124,6 @@
     margin: 0 0 1.6rem;
   }
 
-  .eyebrow span { color: rgb(var(--accent-rgb) / 0.75); font-family: var(--cjk); letter-spacing: 0.1em; }
-
   .hero h1 {
     font-family: var(--display);
     font-weight: 400;
@@ -183,8 +180,10 @@
   }
 
   .pantry a {
-    font-family: var(--cjk);
-    font-size: 1.35rem;
+    font-family: var(--display);
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
     text-decoration: none;
     color: rgb(var(--accent-rgb) / 0.6);
     transition: color 0.5s var(--ease);
@@ -203,25 +202,15 @@
 
   .entry-head { align-self: start; }
 
-  .zh {
-    font-family: var(--cjk);
-    font-weight: 700;
-    font-size: clamp(3rem, 12vw, 5.5rem);
-    line-height: 1;
-    letter-spacing: 0.02em;
+  .name {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(1.5rem, 3.4vw, 2.1rem);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
     margin: 0;
     color: rgb(var(--ink-rgb) / 0.34);
-  }
-
-  .en {
-    display: block;
-    margin-top: 0.9rem;
-    font-family: var(--display);
-    font-size: 0.78rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    line-height: 1.5;
-    color: rgb(var(--accent-rgb) / 0.62);
   }
 
   .entry-body { max-width: 34rem; }
@@ -286,7 +275,7 @@
       grid-template-columns: 15rem 1fr;
       margin-bottom: 11rem;
     }
-    .pantry a { font-size: 1.6rem; }
+    .pantry a { font-size: 0.85rem; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -302,7 +291,6 @@
   <a class="logo" href="index.html">Herbal</a>
   <div class="links">
     <a href="shop.html">Shop</a>
-    <a href="#">Rituals</a>
     <a href="about.html">About</a>
     <a href="journal.html" aria-current="page">Journal</a>
   </div>
@@ -311,30 +299,29 @@
 <main class="shell">
 
   <section class="hero">
-    <p class="eyebrow m m-head">Building Energy <span>· 气</span></p>
+    <p class="eyebrow m m-head">Building Energy</p>
     <h1 class="m m-head">Eleven ways<br>to <em>generate qi</em></h1>
     <p class="standfirst m m-body">Qi is the plain word for the energy a body runs on. These eleven dried roots, seeds and berries are how a lot of Chinese kitchens top it back up: two hours in a pot with chicken or pork bones, and it comes out as dinner.</p>
     <p class="scroll-cue m m-body">Scroll</p>
   </section>
 
   <nav class="pantry m m-body" aria-label="The eleven herbs">
-    <a href="#danggui">当归</a>
-    <a href="#lianzi">莲子</a>
-    <a href="#baihe">百合</a>
-    <a href="#maidong">麦冬</a>
-    <a href="#taizishen">太子参</a>
-    <a href="#huangqi">黄芪</a>
-    <a href="#chuanbei">川贝</a>
-    <a href="#gouqi">枸杞</a>
-    <a href="#yuzhu">玉竹</a>
-    <a href="#yimi">薏米</a>
-    <a href="#qianshi">芡实</a>
+    <a href="#danggui">Chinese angelica</a>
+    <a href="#lianzi">Lotus seed</a>
+    <a href="#baihe">Lily bulb</a>
+    <a href="#maidong">Lilyturf root</a>
+    <a href="#taizishen">Pseudostellaria root</a>
+    <a href="#huangqi">Astragalus root</a>
+    <a href="#chuanbei">Fritillaria bulb</a>
+    <a href="#gouqi">Goji berry</a>
+    <a href="#yuzhu">Fragrant Solomon's seal</a>
+    <a href="#yimi">Job's tears</a>
+    <a href="#qianshi">Gordon euryale seed</a>
   </nav>
 
   <article class="entry" id="danggui">
     <div class="entry-head m m-head">
-      <h2 class="zh">当归</h2>
-      <span class="en">Chinese angelica</span>
+      <h2 class="name">Chinese angelica</h2>
     </div>
     <div class="entry-body m m-body">
       <p>A thick pale root with a smell you notice from across the room. The plant is a cousin of celery and parsley. In the pot it turns the broth a shade darker and gives off a warm, sweet, slightly medicinal perfume. Some people love it on the first spoonful. Others need a few tries.</p>
@@ -346,8 +333,7 @@
 
   <article class="entry" id="lianzi">
     <div class="entry-head m m-head">
-      <h2 class="zh">莲子</h2>
-      <span class="en">Lotus seed</span>
+      <h2 class="name">Lotus seed</h2>
     </div>
     <div class="entry-body m m-body">
       <p>Small ivory seeds, hard as pebbles when dry, soft and a little floury after a long simmer. They come from the seed pod of the lotus, the same plant with the wide flat leaves you see covering a pond.</p>
@@ -359,8 +345,7 @@
 
   <article class="entry" id="baihe">
     <div class="entry-head m m-head">
-      <h2 class="zh">百合</h2>
-      <span class="en">Lily bulb</span>
+      <h2 class="name">Lily bulb</h2>
     </div>
     <div class="entry-body m m-body">
       <p>Thin curved white pieces, about the size of a fingernail. They look like petals but they are not. They are the scales of a lily bulb, taken apart one by one.</p>
@@ -372,8 +357,7 @@
 
   <article class="entry" id="maidong">
     <div class="entry-head m m-head">
-      <h2 class="zh">麦冬</h2>
-      <span class="en">Lilyturf root</span>
+      <h2 class="name">Lilyturf root</h2>
     </div>
     <div class="entry-body m m-body">
       <p>Tiny amber tubers, plump and slightly translucent, each one about the size of a swollen grain of rice. The plant is a low tufty grass that gets planted as ground cover in parks, so you may have walked past it many times.</p>
@@ -385,8 +369,7 @@
 
   <article class="entry" id="taizishen">
     <div class="entry-head m m-head">
-      <h2 class="zh">太子参</h2>
-      <span class="en">Pseudostellaria root</span>
+      <h2 class="name">Pseudostellaria root</h2>
     </div>
     <div class="entry-body m m-body">
       <p>Thin pale roots, no thicker than a matchstick, faintly sweet. The name means prince ginseng. People also call it child ginseng, because it is mild enough for children and for anyone who finds real ginseng too strong and too heating.</p>
@@ -398,8 +381,7 @@
 
   <article class="entry" id="huangqi">
     <div class="entry-head m m-head">
-      <h2 class="zh">黄芪</h2>
-      <span class="en">Astragalus root</span>
+      <h2 class="name">Astragalus root</h2>
     </div>
     <div class="entry-body m m-body">
       <p>Long yellow slices cut across a taproot, flat like a tongue depressor, with a sweet woody taste that comes through clearly in broth.</p>
@@ -411,8 +393,7 @@
 
   <article class="entry" id="chuanbei">
     <div class="entry-head m m-head">
-      <h2 class="zh">川贝</h2>
-      <span class="en">Fritillaria bulb</span>
+      <h2 class="name">Fritillaria bulb</h2>
     </div>
     <div class="entry-body m m-body">
       <p>Tiny white bulbs, each smaller than a pea, shaped like a flower that never opened. It is the expensive one in the drawer, and there is a good reason for that.</p>
@@ -424,8 +405,7 @@
 
   <article class="entry" id="gouqi">
     <div class="entry-head m m-head">
-      <h2 class="zh">枸杞</h2>
-      <span class="en">Goji berry</span>
+      <h2 class="name">Goji berry</h2>
     </div>
     <div class="entry-body m m-body">
       <p>Small soft red berries, sweet, a bit like a raisin with a tomato edge. The one on this list you have most likely already eaten.</p>
@@ -437,8 +417,7 @@
 
   <article class="entry" id="yuzhu">
     <div class="entry-head m m-head">
-      <h2 class="zh">玉竹</h2>
-      <span class="en">Fragrant Solomon's seal</span>
+      <h2 class="name">Fragrant Solomon's seal</h2>
     </div>
     <div class="entry-body m m-body">
       <p>Pale yellow slices cut from a knobbly underground stem. Faintly sweet, a little sticky once it has cooked, and very easy to like.</p>
@@ -450,8 +429,7 @@
 
   <article class="entry" id="yimi">
     <div class="entry-head m m-head">
-      <h2 class="zh">薏米</h2>
-      <span class="en">Job's tears</span>
+      <h2 class="name">Job's tears</h2>
     </div>
     <div class="entry-body m m-body">
       <p>Small pale grains with a groove down one side. It is not really barley, despite the name on the bag. Chewy, nutty, cheap, and sold in every Asian grocery.</p>
@@ -463,8 +441,7 @@
 
   <article class="entry" id="qianshi">
     <div class="entry-head m m-head">
-      <h2 class="zh">芡实</h2>
-      <span class="en">Gordon euryale seed</span>
+      <h2 class="name">Gordon euryale seed</h2>
     </div>
     <div class="entry-body m m-body">
       <p>Little round ivory seeds, hard as gravel when dry, floury and soft after a long simmer. They break down just enough to thicken a soup slightly.</p>
