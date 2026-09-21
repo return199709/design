@@ -82,7 +82,7 @@
     position: relative;
     z-index: 2;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: baseline;
     width: 100%;
     margin: 0;
@@ -90,7 +90,7 @@
     color: oklch(30% 0.16 24);
     font-family: 'Archivo Black', sans-serif;
     font-weight: 400;
-    font-size: 13vw;
+    font-size: min(26vw, 44vh);
     line-height: 1;
     white-space: nowrap;
     text-transform: uppercase;
@@ -102,7 +102,7 @@
 
   .pillars {
     background-color: oklch(97% 0.01 60);
-    padding: 140px 48px;
+    padding: 140px 48px 90vh 48px;
   }
 
   .pillars-grid {
@@ -115,9 +115,11 @@
 
   .pillar h2 {
     margin: 0 0 16px 0;
-    font-family: 'Italiana', serif;
+    font-family: 'Archivo Black', sans-serif;
     font-weight: 400;
-    font-size: clamp(28px, 3.2vw, 42px);
+    font-size: clamp(22px, 2.4vw, 32px);
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
     color: oklch(30% 0.16 24);
   }
 
@@ -144,25 +146,20 @@
       <feDisplacementMap id="disp-1" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="warped"/>
       <feGaussianBlur id="blur-1" in="warped" stdDeviation="0"/>
     </filter>
-    <filter id="dissolve-2" x="-100%" y="-100%" width="300%" height="300%">
+    <filter id="pillar-0" x="-100%" y="-100%" width="300%" height="300%">
       <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="17" result="noise"/>
-      <feDisplacementMap id="disp-2" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="warped"/>
-      <feGaussianBlur id="blur-2" in="warped" stdDeviation="0"/>
+      <feDisplacementMap id="disp-p0" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="warped"/>
+      <feGaussianBlur id="blur-p0" in="warped" stdDeviation="0"/>
     </filter>
-    <filter id="dissolve-3" x="-100%" y="-100%" width="300%" height="300%">
+    <filter id="pillar-1" x="-100%" y="-100%" width="300%" height="300%">
       <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="23" result="noise"/>
-      <feDisplacementMap id="disp-3" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="warped"/>
-      <feGaussianBlur id="blur-3" in="warped" stdDeviation="0"/>
+      <feDisplacementMap id="disp-p1" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="warped"/>
+      <feGaussianBlur id="blur-p1" in="warped" stdDeviation="0"/>
     </filter>
-    <filter id="dissolve-4" x="-100%" y="-100%" width="300%" height="300%">
+    <filter id="pillar-2" x="-100%" y="-100%" width="300%" height="300%">
       <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="31" result="noise"/>
-      <feDisplacementMap id="disp-4" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="warped"/>
-      <feGaussianBlur id="blur-4" in="warped" stdDeviation="0"/>
-    </filter>
-    <filter id="dissolve-5" x="-100%" y="-100%" width="300%" height="300%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="41" result="noise"/>
-      <feDisplacementMap id="disp-5" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="warped"/>
-      <feGaussianBlur id="blur-5" in="warped" stdDeviation="0"/>
+      <feDisplacementMap id="disp-p2" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="warped"/>
+      <feGaussianBlur id="blur-p2" in="warped" stdDeviation="0"/>
     </filter>
   </defs>
 </svg>
@@ -184,8 +181,8 @@
       </div>
     </nav>
 
-    <h1 class="headline" aria-label="Herbal">
-      <span style="filter: url(#dissolve-0)">H</span><span style="filter: url(#dissolve-1)">e</span><span style="filter: url(#dissolve-2)">r</span><span style="filter: url(#dissolve-3)">b</span><span style="filter: url(#dissolve-4)">a</span><span style="filter: url(#dissolve-5)">l</span>
+    <h1 class="headline" aria-label="Qi">
+      <span style="filter: url(#dissolve-0)">Q</span><span style="filter: url(#dissolve-1)">i</span>
     </h1>
   </div>
 </div>
@@ -193,15 +190,15 @@
 <section class="pillars">
   <div class="pillars-grid">
     <div class="pillar">
-      <h2>Longevity</h2>
+      <h2 style="filter: url(#pillar-0)">Longevity</h2>
       <p>Time-honored formulas that support the body's natural rhythm, season after season.</p>
     </div>
     <div class="pillar">
-      <h2>Nourish</h2>
+      <h2 style="filter: url(#pillar-1)">Nourish</h2>
       <p>Whole-root botanicals selected to restore balance from the inside out.</p>
     </div>
     <div class="pillar">
-      <h2>Replenish</h2>
+      <h2 style="filter: url(#pillar-2)">Replenish</h2>
       <p>Daily rituals that rebuild what modern life quietly depletes.</p>
     </div>
   </div>
@@ -228,6 +225,8 @@
 
   var pillarsSection = document.querySelector('.pillars');
   var pillars = Array.prototype.slice.call(document.querySelectorAll('.pillar'));
+  var pDisp = pillars.map(function (_, i) { return document.getElementById('disp-p' + i); });
+  var pBlur = pillars.map(function (_, i) { return document.getElementById('blur-p' + i); });
   var pDuration = 0.6;
   var pStagger = pillars.length > 1 ? (1 - pDuration) / (pillars.length - 1) : 0;
 
@@ -254,7 +253,19 @@
       var pp = Math.min(1, Math.max(0, raw));
       pillars.forEach(function (el, i) {
         var li = Math.min(1, Math.max(0, (pp - i * pStagger) / pDuration));
-        el.style.opacity = String(li);
+
+        // on the way out each heading dissolves like the hero headline
+        var h = el.querySelector('h2');
+        var dp = 0;
+        if (h) {
+          var hr = h.getBoundingClientRect();
+          var hc = hr.top + hr.height / 2;
+          dp = Math.min(1, Math.max(0, (vh * 0.34 - hc) / (vh * 0.34)));
+          if (pDisp[i]) pDisp[i].setAttribute('scale', String(dp * 70));
+          if (pBlur[i]) pBlur[i].setAttribute('stdDeviation', String((dp * 3).toFixed(2)));
+        }
+
+        el.style.opacity = String(li * (1 - dp));
         el.style.transform = 'translateX(' + ((1 - li) * -24).toFixed(1) + 'px)';
       });
     }

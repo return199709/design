@@ -6,12 +6,11 @@
 <title>The Qi Generation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Italiana&family=Manrope:wght@400;500;600&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
 <style>
   :root {
-    /* ground matched to the hero page's nude */
-    --ground-rgb: 227 196 175;
-    --raised-rgb: 239 217 204;
+    --ground-rgb: 250 244 239;
+    --raised-rgb: 243 235 227;
     --ink-rgb: 22 32 27;
     --accent-rgb: 143 88 26;
     --rule-rgb: 22 32 27;
@@ -53,40 +52,58 @@
     border-radius: 2px;
   }
 
-  /* ---------- masthead ---------- */
+  /* ---------- site nav (shared with the hero page) ---------- */
 
-  .masthead {
+  .sitenav {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 20;
-    padding: 1rem 1.25rem;
-    padding-top: calc(1rem + env(safe-area-inset-top, 0px));
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: baseline;
     gap: 1rem;
-    font-family: var(--display);
-    font-size: 0.7rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: rgb(var(--ink-rgb) / 0.42);
-    background: linear-gradient(to bottom, rgb(var(--ground-rgb) / 0.92), rgb(var(--ground-rgb) / 0));
-    transition: transform var(--slow) var(--ease), opacity var(--slow) var(--ease);
-    pointer-events: none;
+    padding: 1.6rem 1.25rem 2.4rem;
+    padding-top: calc(1.6rem + env(safe-area-inset-top, 0px));
+    background: linear-gradient(to bottom, rgb(var(--ground-rgb) / 0.96), rgb(var(--ground-rgb) / 0));
   }
 
-  .masthead .count {
-    font-family: var(--body);
-    font-weight: 700;
+  .sitenav .logo {
+    font-family: 'Italiana', serif;
+    font-size: 20px;
     letter-spacing: 0.16em;
-    color: rgb(var(--accent-rgb) / 0.62);
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgb(var(--ink-rgb) / 0.78);
   }
 
-  .masthead.gone {
-    transform: translate3d(7rem, 0, 0);
-    opacity: 0;
+  .sitenav .links {
+    display: flex;
+    gap: 2.4rem;
+  }
+
+  .sitenav .links a {
+    font-family: 'Manrope', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgb(var(--ink-rgb) / 0.6);
+  }
+
+  .sitenav .links a:hover { opacity: 0.55; }
+
+  .sitenav .links a[aria-current="page"] {
+    color: rgb(var(--accent-rgb) / 0.95);
+    border-bottom: 1px solid rgb(var(--accent-rgb) / 0.55);
+    padding-bottom: 2px;
+  }
+
+  @media (max-width: 40rem) {
+    .sitenav .links { gap: 1.2rem; }
+    .sitenav .links a { font-size: 11px; letter-spacing: 0.06em; }
   }
 
   /* ---------- hero ---------- */
@@ -274,17 +291,21 @@
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .m, .masthead { transition: none; }
-    .m.below, .m-head.below, .m.past, .m-head.past,
-    .masthead.gone { opacity: 1; transform: none; }
+    .m { transition: none; }
+    .m.below, .m-head.below, .m.past, .m-head.past { opacity: 1; transform: none; }
   }
 </style>
 </head>
 <body>
 
-<header class="masthead" id="masthead">
-  <span>The Qi Generation</span>
-  <span class="count">Eleven Ways</span>
+<header class="sitenav">
+  <a class="logo" href="index.html">Herbal</a>
+  <div class="links">
+    <a href="#">Shop</a>
+    <a href="#">Rituals</a>
+    <a href="#">About</a>
+    <a href="journal.html" aria-current="page">Journal</a>
+  </div>
 </header>
 
 <main class="shell">
@@ -463,7 +484,6 @@
 <script>
   (function () {
     var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var masthead = document.getElementById("masthead");
     if (reduced) return;
 
     // Each paragraph travels on its own, so a block empties line by line
@@ -500,8 +520,6 @@
         el.classList.toggle("below", below);
         el.classList.toggle("past", !below && past);
       });
-
-      masthead.classList.toggle("gone", window.scrollY > vh * 0.5);
     }
 
     function onScroll() {
